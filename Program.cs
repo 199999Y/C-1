@@ -4,32 +4,40 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Ingresa un número entero de cuatro dígitos: ");
+        Console.Write("Ingresa un número entero de dos dígitos: ");
         int numero = int.Parse(Console.ReadLine());
 
-        // Validar que sean 4
-        if (numero >= 1000 && numero <= 9999 || numero <= -1000 && numero >= -9999)
+        // Que el numero sea de dos numeros
+        if (numero >= 10 && numero <= 99 || numero <= -10 && numero >= -99)
         {
-            // Convertir el número a su valor absoluto
-            numero = Math.Abs(numero);
+            // Verificar es primo
+            bool esPrimo = EsPrimo(Math.Abs(numero));
 
-            
-            int segundoDigito = (numero / 100) % 10; 
-            int penultimoDigito = (numero / 10) % 10; 
+            // Verificar si es negativo
+            bool esNegativo = numero < 0;
 
-           
-            if (segundoDigito == penultimoDigito)
-            {
-                Console.WriteLine($"El segundo dígito ({segundoDigito}) es igual al penúltimo dígito ({penultimoDigito}).");
-            }
-            else
-            {
-                Console.WriteLine($"El segundo dígito ({segundoDigito}) no es igual al penúltimo dígito ({penultimoDigito}).");
-            }
+            //esultados
+            Console.WriteLine($"El número {numero} es {(esPrimo ? "primo" : "no primo")}.");
+            Console.WriteLine($"El número {numero} es {(esNegativo ? "negativo" : "positivo")}.");
         }
         else
         {
-            Console.WriteLine("El número ingresado no es de cuatro dígitos.");
+            Console.WriteLine("El número ingresado no es de dos dígitos.");
         }
+    }
+
+    static bool EsPrimo(int numero)
+    {
+        if (numero < 2) return false; // Los números menores a 2 no son primos
+
+        for (int i = 2; i <= Math.Sqrt(numero); i++)
+        {
+            if (numero % i == 0)
+            {
+                return false; // Si tiene un divisor, no es primo
+            }
+        }
+
+        return true; // Es primo si no tiene divisores
     }
 }
