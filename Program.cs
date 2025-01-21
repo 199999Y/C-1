@@ -4,40 +4,34 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Ingresa un número entero de dos dígitos: ");
+        Console.Write("Ingresa un número entero de tres dígitos: ");
         int numero = int.Parse(Console.ReadLine());
 
-        // Que el numero sea de dos numeros
-        if (numero >= 10 && numero <= 99 || numero <= -10 && numero >= -99)
+        
+        if (numero >= 100 && numero <= 999 || numero <= -100 && numero >= -999)
         {
-            // Verificar es primo
-            bool esPrimo = EsPrimo(Math.Abs(numero));
+            // Obtener dígitos
+            int unidad = Math.Abs(numero % 10); // Último dígito
+            int decena = Math.Abs((numero / 10) % 10); // Segundo dígito
+            int centena = Math.Abs(numero / 100); // Primer dígito
 
-            // Verificar si es negativo
-            bool esNegativo = numero < 0;
-
-            //esultados
-            Console.WriteLine($"El número {numero} es {(esPrimo ? "primo" : "no primo")}.");
-            Console.WriteLine($"El número {numero} es {(esNegativo ? "negativo" : "positivo")}.");
+            // Determinar el mayor dígito
+            if (centena >= decena && centena >= unidad)
+            {
+                Console.WriteLine($"El mayor dígito es {centena} y está en la posición de las centenas.");
+            }
+            else if (decena >= centena && decena >= unidad)
+            {
+                Console.WriteLine($"El mayor dígito es {decena} y está en la posición de las decenas.");
+            }
+            else
+            {
+                Console.WriteLine($"El mayor dígito es {unidad} y está en la posición de las unidades.");
+            }
         }
         else
         {
-            Console.WriteLine("El número ingresado no es de dos dígitos.");
+            Console.WriteLine("El número ingresado no es de tres dígitos.");
         }
-    }
-
-    static bool EsPrimo(int numero)
-    {
-        if (numero < 2) return false; // Los números menores a 2 no son primos
-
-        for (int i = 2; i <= Math.Sqrt(numero); i++)
-        {
-            if (numero % i == 0)
-            {
-                return false; // Si tiene un divisor, no es primo
-            }
-        }
-
-        return true; // Es primo si no tiene divisores
     }
 }
